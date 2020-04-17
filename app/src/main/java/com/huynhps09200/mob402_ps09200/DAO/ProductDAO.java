@@ -20,7 +20,7 @@ import java.util.List;
 public class ProductDAO {
 
     Context context;
-    String serverUrl = "http://192.168.1.10:4100";
+    String serverUrl = "http://192.168.1.9:4100";
     List<SanPham> list = new ArrayList<SanPham>();
 
 

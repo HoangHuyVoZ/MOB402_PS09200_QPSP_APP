@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerHorizontal="true"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp"
+    android:id="@+id/card">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:id="@+id/main">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#F1F1F1"
+            android:id="@+id/image">
+
+        </ImageView>
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/name"
+        android:textSize="25dp"
+        android:text="Hello !!!"
+        android:layout_below="@+id/image"
+        android:textStyle="bold"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="#F44336"
+            android:layout_alignParentRight="true"
+            android:id="@+id/price"
+            android:textSize="20dp"
+            android:layout_marginRight="30dp"
+            android:text="Hello !!!"
+            android:layout_below="@+id/image"
+           ></TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/mota"
+            android:layout_marginRight="20dp"
+            android:textSize="15dp"
+            android:textColor="#4CAF50"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="hgjndghdfhdfhbvmfgjdfngmjdghfdvnf !!!"
+            android:layout_below="@+id/name"
+            android:textStyle="italic"></TextView>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

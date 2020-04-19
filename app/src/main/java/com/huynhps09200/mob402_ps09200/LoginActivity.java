@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://192.168.1.9:4100");
+            mSocket = IO.socket("http://192.168.1.10:4100");
         } catch (URISyntaxException e) {}
     }
 
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else{
-                noui.toast("Đăng nhập thất bại");
+//                noui.toast("Đăng nhập thất bại");
             }
             hideDialog();
 

@@ -47,7 +47,7 @@ public class RecyclerView_Sanpham extends RecyclerView.Adapter<RecyclerView_Sanp
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final SanPham sanPham = list.get(i);
         viewHolder.tvName.setText(sanPham.getName());
-        viewHolder.tvPrice.setText(sanPham.getPrice());
+        viewHolder.tvPrice.setText(sanPham.getPrice()+" VNĐ");
         viewHolder.tvDescription.setText(sanPham.getDescription());
         Picasso.get().load("http://192.168.1.10:4100/"+sanPham.getImage()).into(viewHolder.image);
     }

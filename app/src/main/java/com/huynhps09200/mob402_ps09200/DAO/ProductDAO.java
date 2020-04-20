@@ -20,7 +20,7 @@ import java.util.List;
 public class ProductDAO {
 
     Context context;
-    String serverUrl = "http://192.168.1.10:4100";
+    String serverUrl = "http://192.168.1.11:4100";
     List<SanPham> list = new ArrayList<SanPham>();
 
 
@@ -46,7 +46,7 @@ public class ProductDAO {
                 Log.i("insert","Insert thanh cong");
 
                 noui.toast("Insert thanh cong");
-//                noui.capnhatListView();
+                noui.capnhatListView();
 
 
 
@@ -62,13 +62,75 @@ public class ProductDAO {
 
         }
     };
+    //lang nghe Delete
+    private Emitter.Listener onDeleteProduct = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            String data =  args[0].toString();
+
+            noUI noui = new noUI(context);
+
+            if(data == "true"){
+                Log.i("Delete","Delete thanh cong");
+
+                noui.toast("Delete thanh cong");
+
+
+                noui.capnhatListView();
+
+
+
+
+
+
+            }else{
+
+                Log.i("Delete","Delete that bai");
+
+                noui.toast("Delete that bai");
+
+            }
+
+        }
+    };
+    //lang nghe Update
+    private Emitter.Listener onUpdateProduct = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            String data =  args[0].toString();
+
+            noUI noui = new noUI(context);
+
+            if(data == "true"){
+                Log.i("update","Update thanh cong");
+
+                noui.toast("Update thanh cong");
+
+
+                noui.capnhatListView();
+
+
+
+
+
+
+            }else{
+
+                Log.i("update","Update that bai");
+
+                noui.toast("Update that bai");
+
+            }
+
+        }
+    };
     //lang nghe getAll
     private Emitter.Listener onGetAllProduct = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
 
             SanPham sv = new SanPham();
-
+            noUI noui = new noUI(context);
             JSONObject jsonObject = (JSONObject) args[0];
             //parser JSON
             try {
@@ -79,13 +141,13 @@ public class ProductDAO {
                 sv.Image = jsonObject.getString("image");
 
                 list.add(sv);
-
+                noui.capnhatListView();
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            noUI noui = new noUI(context);
+
             if(!list.isEmpty()){
 
 
@@ -111,6 +173,8 @@ public class ProductDAO {
         mSocket.connect();
         mSocket.on("insertProduct", onInsertProduct);
         mSocket.on("getProduct", onGetAllProduct);
+        mSocket.on("deleteProduct", onDeleteProduct);
+        mSocket.on("updateProduct", onUpdateProduct);
     }
 
 
@@ -135,12 +199,12 @@ public class ProductDAO {
 
     public void update(final SanPham sv) {
 
-
+        mSocket.emit("updateProduct", sv._id,sv.Name, sv.Price, sv.Description,sv.Image);
 
     }
 
     public void delete(final String id) {
-
+        mSocket.emit("deleteProduct", id);
 
 
     }

@@ -33,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://192.168.1.10:4100");
-        } catch (URISyntaxException e) {}
+            mSocket = IO.socket("http://192.168.1.11:4100");
+    } catch (URISyntaxException e) {}
     }
 
     // lang nghe su kien login va xu ly

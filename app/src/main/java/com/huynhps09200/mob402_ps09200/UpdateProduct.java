@@ -3,38 +3,27 @@ package com.huynhps09200.mob402_ps09200;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
-import com.github.nkzawa.socketio.client.IO;
-import com.github.nkzawa.socketio.client.Socket;
 import com.huynhps09200.mob402_ps09200.DAO.ProductDAO;
 import com.huynhps09200.mob402_ps09200.Model.SanPham;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -46,15 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URISyntaxException;
-
-
-public class InsertProduct extends AppCompatActivity {
+public class UpdateProduct extends AppCompatActivity {
     TextView btnHuy,btnLuu;
     EditText edtName,edtPrice,edtDes;
     ImageView image;
@@ -65,13 +46,11 @@ public class InsertProduct extends AppCompatActivity {
     byte[] byteArray;
     ApiService apiService;
     String imagefile;
-    String img="";
-
-
+    String img="", name,_id,images,des,price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert_product);
+        setContentView(R.layout.activity_update_product);
         btnHuy=findViewById(R.id.tvHuy);
         btnLuu=findViewById(R.id.tvLuu);
         edtName=findViewById(R.id.edtName);
@@ -79,13 +58,22 @@ public class InsertProduct extends AppCompatActivity {
         edtDes=findViewById(R.id.edtDes);
         productDAO = new ProductDAO(this);
         image=findViewById(R.id.Image);
-
+        Bundle bundle = getIntent().getExtras();
+        name = bundle.getString("name");
+        _id = bundle.getString("_id");
+        des = bundle.getString("des");
+        price = bundle.getString("price");
+        images=bundle.getString("image");
+        edtName.setText(name);
+        edtPrice.setText(price);
+        edtDes.setText(des);
+        Picasso.get().load("http://192.168.1.11:4100/"+images).into(image);
         initRetrofitClient();
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               chooseImage();
+                chooseImage();
             }
         });
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +93,7 @@ public class InsertProduct extends AppCompatActivity {
 
 
                 sanPham= new SanPham();
+                sanPham._id=_id;
                 sanPham.Name=edtName.getText().toString();
                 sanPham.Price=edtPrice.getText().toString();
                 sanPham.Description=edtDes.getText().toString();
@@ -112,24 +101,21 @@ public class InsertProduct extends AppCompatActivity {
                 sanPham.Image= imagefile;
                 if(!sanPham.Name.isEmpty() && !sanPham.Price.isEmpty() && !sanPham.Description.isEmpty()){
                     //them student
-                    productDAO.insert(sanPham);
-                    Toast.makeText(InsertProduct.this, "Thêm dữ liệu thành công !!!", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(InsertProduct.this,
-//                            MainActivity.class);
-//                    startActivity(intent);
-//                    finish();
+                    productDAO.update(sanPham);
+                    Toast.makeText(UpdateProduct.this, "Cập nhật dữ liệu thành công !!!", Toast.LENGTH_SHORT).show();
                     MainActivity mainActivity= new MainActivity();
                     mainActivity.sanPhams.clear();
                     mainActivity.sanPhams.addAll(productDAO.getAll());
                     finish();
+
                 }else{
-                    Toast.makeText(InsertProduct.this, "Vui lòng nhập đầy đủ thông tin!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateProduct.this, "Vui lòng nhập đầy đủ thông tin!!!", Toast.LENGTH_SHORT).show();
                 }
 
-    }
+            }
 
 
-});
+        });
     }
     private void chooseImage() {
         Intent intent= new Intent();
@@ -157,7 +143,7 @@ public class InsertProduct extends AppCompatActivity {
                 image.setImageBitmap(bitmap);
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
-                 byteArray = byteArrayOutputStream.toByteArray();
+                byteArray = byteArrayOutputStream.toByteArray();
                 img = Base64.encodeToString(byteArray, Base64.DEFAULT);
                 multipartImageUpload();
 
@@ -222,6 +208,5 @@ public class InsertProduct extends AppCompatActivity {
 
         apiService = new Retrofit.Builder().baseUrl("http://192.168.1.11:4100").client(client).build().create(ApiService.class);
     }
-
 
 }

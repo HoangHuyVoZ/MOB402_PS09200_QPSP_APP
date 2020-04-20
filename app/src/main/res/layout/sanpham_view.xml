@@ -55,9 +55,30 @@
             android:textSize="15dp"
             android:textColor="#4CAF50"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:text="hgjndghdfhdfhbvmfgjdfngmjdghfdvnf !!!"
             android:layout_below="@+id/name"
             android:textStyle="italic"></TextView>
+
+        <Button
+            android:id="@+id/btnXoa"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/mota"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/xoa"></Button>
+
+        <Button
+            android:id="@+id/btnSua"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/mota"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/btnXoa"
+            android:background="@drawable/sua"></Button>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

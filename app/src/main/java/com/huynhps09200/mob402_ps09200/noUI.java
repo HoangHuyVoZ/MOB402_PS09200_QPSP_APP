@@ -17,7 +17,7 @@ public class noUI {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             public void run() {
-                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -26,7 +26,8 @@ public class noUI {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             public void run() {
-                ((MainActivity) context).capnhatLV();
+//                ((MainActivity) context).capnhatLV();
+                MainActivity.capnhat();
             }
         });
     }

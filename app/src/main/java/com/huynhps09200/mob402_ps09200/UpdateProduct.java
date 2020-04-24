@@ -104,8 +104,8 @@ public class UpdateProduct extends AppCompatActivity {
                     productDAO.update(sanPham);
                     Toast.makeText(UpdateProduct.this, "Cập nhật dữ liệu thành công !!!", Toast.LENGTH_SHORT).show();
                     MainActivity mainActivity= new MainActivity();
-                    mainActivity.sanPhams.clear();
-                    mainActivity.sanPhams.addAll(productDAO.getAll());
+                    mainActivity.list.clear();
+                    mainActivity.list.addAll(productDAO.getAll());
                     finish();
 
                 }else{

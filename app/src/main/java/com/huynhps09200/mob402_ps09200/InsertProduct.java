@@ -119,8 +119,8 @@ public class InsertProduct extends AppCompatActivity {
 //                    startActivity(intent);
 //                    finish();
                     MainActivity mainActivity= new MainActivity();
-                    mainActivity.sanPhams.clear();
-                    mainActivity.sanPhams.addAll(productDAO.getAll());
+                    mainActivity.list.clear();
+                    mainActivity.list.addAll(productDAO.getAll());
                     finish();
                 }else{
                     Toast.makeText(InsertProduct.this, "Vui lòng nhập đầy đủ thông tin!!!", Toast.LENGTH_SHORT).show();

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProductDAO {
@@ -127,42 +128,31 @@ public class ProductDAO {
     //lang nghe getAll
     private Emitter.Listener onGetAllProduct = new Emitter.Listener() {
         @Override
+
         public void call(Object... args) {
-
-            SanPham sv = new SanPham();
-            noUI noui = new noUI(context);
-            JSONObject jsonObject = (JSONObject) args[0];
-            //parser JSON
-            try {
-                sv._id = jsonObject.getString("_id");
-                sv.Name = jsonObject.getString("name");
-                sv.Price=jsonObject.getString("price");
-                sv.Description = jsonObject.getString("description");
-                sv.Image = jsonObject.getString("image");
-
-                list.add(sv);
-                noui.capnhatListView();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            if(!list.isEmpty()){
-
-
-                Log.i("GetAll","GetAll thanh cong");
-
+                 SanPham sv = new SanPham();
+                noUI noui = new noUI(context);
+                JSONObject jsonObject = (JSONObject) args[0];
+                //parser JSON
+                try {
+                    sv._id = jsonObject.getString("_id");
+                    sv.Name = jsonObject.getString("name");
+                    sv.Price = jsonObject.getString("price");
+                    sv.Description = jsonObject.getString("description");
+                    sv.Image = jsonObject.getString("image");
+                     list.add(sv);
+                    noui.capnhatListView();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(!list.isEmpty()){
+                    Log.i("GetAll","GetAll thanh cong");
 //                noui.toast("GetAll thanh cong");
-
-            }else{
-
-                Log.i("GetAll","GetAll that bai");
+                }else{
+                    Log.i("GetAll","GetAll that bai");
 
 //                noui.toast("GetAll that bai");
-            }
-
-
+                }
         }
     };
 
